@@ -1,12 +1,12 @@
 /**
- * SERVIÇO DE USUÁRIOS - REGRAS DE NEGÓCIO
+ * SERVIÃ‡O DE USUÃRIOS - REGRAS DE NEGÃ“CIO
  * =======================================
- * Esta classe contém toda a lógica de negócio para gerenciar usuários:
- * - Validações (email único, dados obrigatórios)
- * - Comunicação com o banco de dados
- * - Autenticação de login
+ * Esta classe contÃ©m toda a lÃ³gica de negÃ³cio para gerenciar usuÃ¡rios:
+ * - ValidaÃ§Ãµes (email Ãºnico, dados obrigatÃ³rios)
+ * - ComunicaÃ§Ã£o com o banco de dados
+ * - AutenticaÃ§Ã£o de login
  * - Tratamento de erros
- * É como o "cérebro" do sistema que pensa antes de agir no banco.
+ * Ã‰ como o "cÃ©rebro" do sistema que pensa antes de agir no banco.
  */
 package com.lucasmicaeldev.montadordemoveis.demo.service;
 
@@ -20,17 +20,17 @@ import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
-@Service // Diz ao Spring: "Esta classe contém lógica de negócio"
+@Service // Diz ao Spring: "Esta classe contÃ©m lÃ³gica de negÃ³cio"
 public class UsuarioService {
 
     @Autowired // Injeta automaticamente a "ferramenta" que acessa o banco
     private UsuarioRepository usuarioRepository;
 
     /**
-     * FUNÇÃO: Listar todos os usuários ordenados por ID
+     * FUNÃ‡ÃƒO: Listar todos os usuÃ¡rios ordenados por ID
      * ===============================================
-     * Busca todos os usuários do banco, organizados do menor ID para o maior
-     * É como ver a lista de clientes da empresa em ordem de cadastro
+     * Busca todos os usuÃ¡rios do banco, organizados do menor ID para o maior
+     * Ã‰ como ver a lista de clientes da empresa em ordem de cadastro
      */
     public List<Usuario> listarTodos() {
         // Busca todos e ordena por ID em ordem crescente (ASC = Ascending)
@@ -38,78 +38,78 @@ public class UsuarioService {
     }
 
     /**
-     * FUNÇÃO: Buscar um usuário específico pelo ID
+     * FUNÃ‡ÃƒO: Buscar um usuÃ¡rio especÃ­fico pelo ID
      * ===========================================
-     * Encontra um usuário usando seu número identificador
-     * É como procurar uma ficha específica no arquivo de clientes
+     * Encontra um usuÃ¡rio usando seu nÃºmero identificador
+     * Ã‰ como procurar uma ficha especÃ­fica no arquivo de clientes
      */
     public Usuario buscarPorId(Long id) {
-        // Validação: ID não pode ser nulo
+        // ValidaÃ§Ã£o: ID nÃ£o pode ser nulo
         if (id == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ID não pode ser nulo.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ID nÃ£o pode ser nulo.");
         }
 
-        // Busca no banco e retorna erro 404 se não encontrar
+        // Busca no banco e retorna erro 404 se nÃ£o encontrar
         return usuarioRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "UsuÃ¡rio nÃ£o encontrado."));
     }
 
     /**
-     * FUNÇÃO: Criar novo usuário no sistema
+     * FUNÃ‡ÃƒO: Criar novo usuÃ¡rio no sistema
      * ====================================
-     * Cadastra um novo usuário com validações de segurança
-     * É como registrar um novo cliente na empresa
+     * Cadastra um novo usuÃ¡rio com validaÃ§Ãµes de seguranÃ§a
+     * Ã‰ como registrar um novo cliente na empresa
      */
     public Usuario criar(Usuario usuario) {
-        // TRATAMENTO ESPECIAL: Se não tem senha (cliente), define string vazia
-        // Isso evita erro de "campo obrigatório" no banco de dados
+        // TRATAMENTO ESPECIAL: Se nÃ£o tem senha (cliente), define string vazia
+        // Isso evita erro de "campo obrigatÃ³rio" no banco de dados
         // Em sistemas reais, clientes podem ter senhas opcionais
         if (usuario.getSenha() == null) {
-            usuario.setSenha(""); // Garante que não é NULL no banco
+            usuario.setSenha(""); // Garante que nÃ£o Ã© NULL no banco
         }
 
-        // Normaliza o email para minúsculas para garantir consistência
+        // Normaliza o email para minÃºsculas para garantir consistÃªncia
         if (usuario.getEmail() != null) {
-            usuario.setEmail(usuario.getEmail().toLowerCase().trim());
+            usuario.setEmail(usuario.getEmail());
         }
 
-        // VALIDAÇÃO IMPORTANTE: Email deve ser único no sistema
-        // Verifica se já existe outro usuário com o mesmo email
+        // VALIDAÃ‡ÃƒO IMPORTANTE: Email deve ser Ãºnico no sistema
+        // Verifica se jÃ¡ existe outro usuÃ¡rio com o mesmo email
         if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "E-mail já cadastrado.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "E-mail jÃ¡ cadastrado.");
         }
 
-        // Salva o usuário no banco de dados e retorna o usuário criado
+        // Salva o usuÃ¡rio no banco de dados e retorna o usuÃ¡rio criado
         return usuarioRepository.save(usuario);
     }
 
     /**
-     * FUNÇÃO: Atualizar dados de um usuário existente
+     * FUNÃ‡ÃƒO: Atualizar dados de um usuÃ¡rio existente
      * ==============================================
-     * Modifica as informações de um usuário já cadastrado
-     * É como atualizar a ficha de um cliente
+     * Modifica as informaÃ§Ãµes de um usuÃ¡rio jÃ¡ cadastrado
+     * Ã‰ como atualizar a ficha de um cliente
      */
     public Usuario atualizar(Long id, Usuario usuarioDetalhes) {
-        // Primeiro busca o usuário existente (se não existir, dará erro)
+        // Primeiro busca o usuÃ¡rio existente (se nÃ£o existir, darÃ¡ erro)
         Usuario usuario = buscarPorId(id);
 
         // Atualiza todos os campos com os novos dados
         usuario.setNomeCompleto(usuarioDetalhes.getNomeCompleto());
 
-        // Normaliza o email para minúsculas
+        // Normaliza o email para minÃºsculas
         if (usuarioDetalhes.getEmail() != null) {
-            usuario.setEmail(usuarioDetalhes.getEmail().toLowerCase().trim());
+            usuario.setEmail(usuarioDetalhes.getEmail());
         } else {
             usuario.setEmail(usuarioDetalhes.getEmail());
         }
 
-        // TRATAMENTO ESPECIAL DA SENHA: só atualiza se foi fornecida uma nova
+        // TRATAMENTO ESPECIAL DA SENHA: sÃ³ atualiza se foi fornecida uma nova
         if (usuarioDetalhes.getSenha() != null && !usuarioDetalhes.getSenha().isEmpty()) {
             // Em sistemas reais, aqui seria aplicada criptografia na senha
             usuario.setSenha(usuarioDetalhes.getSenha());
         }
 
-        // Atualiza demais campos de contato e endereço
+        // Atualiza demais campos de contato e endereÃ§o
         usuario.setTelefone(usuarioDetalhes.getTelefone());
         usuario.setCpf(usuarioDetalhes.getCpf());
         usuario.setDataNascimento(usuarioDetalhes.getDataNascimento());
@@ -119,18 +119,18 @@ public class UsuarioService {
         usuario.setCidadeEstado(usuarioDetalhes.getCidadeEstado());
         usuario.setObservacoes(usuarioDetalhes.getObservacoes());
 
-        // Salva as alterações no banco e retorna o usuário atualizado
+        // Salva as alteraÃ§Ãµes no banco e retorna o usuÃ¡rio atualizado
         return usuarioRepository.save(usuario);
     }
 
     /**
-     * FUNÇÃO: Deletar um usuário do sistema
+     * FUNÃ‡ÃƒO: Deletar um usuÃ¡rio do sistema
      * ====================================
-     * Remove permanentemente um usuário do banco de dados
-     * É como remover a ficha de um cliente dos arquivos
+     * Remove permanentemente um usuÃ¡rio do banco de dados
+     * Ã‰ como remover a ficha de um cliente dos arquivos
      */
     public void deletar(Long id) {
-        // Busca o usuário (se não existir, buscarPorId já dará erro)
+        // Busca o usuÃ¡rio (se nÃ£o existir, buscarPorId jÃ¡ darÃ¡ erro)
         Usuario usuario = buscarPorId(id);
 
         // Se existe, remove do banco
@@ -140,33 +140,33 @@ public class UsuarioService {
     }
 
     /**
-     * FUNÇÃO: Autenticar usuário no sistema (LOGIN)
+     * FUNÃ‡ÃƒO: Autenticar usuÃ¡rio no sistema (LOGIN)
      * ============================================
-     * Verifica se email e senha estão corretos para permitir o login
-     * É como verificar a identidade de alguém na portaria
+     * Verifica se email e senha estÃ£o corretos para permitir o login
+     * Ã‰ como verificar a identidade de alguÃ©m na portaria
      */
     public Usuario autenticar(String email, String senha) {
-        // Normaliza o email para minúsculas para evitar problemas com case-sensitive
-        String emailNormalizado = email != null ? email.toLowerCase().trim() : null;
+        // Normaliza o email para minÃºsculas para evitar problemas com case-sensitive
+        String emailNormalizado = email != null ? email : null;
 
-        // Busca o usuário pelo email no banco de dados
+        // Busca o usuÃ¡rio pelo email no banco de dados
         Usuario usuario = usuarioRepository.findByEmail(emailNormalizado)
-                .orElse(null); // Se não encontrar, retorna null
+                .orElse(null); // Se nÃ£o encontrar, retorna null
 
-        // VALIDAÇÕES DE SEGURANÇA:
-        // 1. Usuário não existe
-        // 2. Usuário não tem senha (é cliente sem acesso ao sistema)
-        // 3. Senha está vazia
+        // VALIDAÃ‡Ã•ES DE SEGURANÃ‡A:
+        // 1. UsuÃ¡rio nÃ£o existe
+        // 2. UsuÃ¡rio nÃ£o tem senha (Ã© cliente sem acesso ao sistema)
+        // 3. Senha estÃ¡ vazia
         if (usuario == null || usuario.getSenha() == null || usuario.getSenha().isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuário ou senha incorretos.");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "UsuÃ¡rio ou senha incorretos.");
         }
 
-        // VERIFICAÇÃO DA SENHA (comparação simples - em produção seria criptografada)
+        // VERIFICAÃ‡ÃƒO DA SENHA (comparaÃ§Ã£o simples - em produÃ§Ã£o seria criptografada)
         if (usuario.getSenha().equals(senha)) {
-            return usuario; // LOGIN SUCESSO: retorna os dados do usuário
+            return usuario; // LOGIN SUCESSO: retorna os dados do usuÃ¡rio
         } else {
             // LOGIN FALHOU: senha incorreta
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuário ou senha incorretos.");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "UsuÃ¡rio ou senha incorretos.");
         }
     }
 }
