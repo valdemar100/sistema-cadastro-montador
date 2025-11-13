@@ -95,7 +95,7 @@ public class UsuarioService {
 
         // Atualiza todos os campos com os novos dados
         usuario.setNomeCompleto(usuarioDetalhes.getNomeCompleto());
-        
+
         // Normaliza o email para minúsculas
         if (usuarioDetalhes.getEmail() != null) {
             usuario.setEmail(usuarioDetalhes.getEmail().toLowerCase().trim());
@@ -148,7 +148,7 @@ public class UsuarioService {
     public Usuario autenticar(String email, String senha) {
         // Normaliza o email para minúsculas para evitar problemas com case-sensitive
         String emailNormalizado = email != null ? email.toLowerCase().trim() : null;
-        
+
         // Busca o usuário pelo email no banco de dados
         Usuario usuario = usuarioRepository.findByEmail(emailNormalizado)
                 .orElse(null); // Se não encontrar, retorna null
