@@ -1,0 +1,739 @@
+/* ================================================= */
+/* 1. VARIÁVEIS DE COR E TIPOGRAFIA (PALETA ROOT) */
+/* ================================================= */
+:root {
+    /* Cores do Dashboard Original (Foco principal) */
+    --primary-color: #1A3E8F; /* Azul Escuro */
+    --primary-hover: #3b82f6; /* Azul de Ação/Hover (Light Blue) */
+    --background-color: #F5F7FA; /* Fundo Suave */
+    --content-bg: #FFFFFF; /* Fundo de Cards e Headers */
+    --text-dark: #333;
+    --text-soft: #777;
+
+    /* Novas variáveis para Formulário */
+    --border-color: #ddd; /* Borda padrão para inputs */
+    --success-color: #10B981; /* Verde para sucesso/feedback */
+    /* NOVAS CORES DE AÇÃO */
+    --danger-color: #EF4444; /* Vermelho Padrão de Perigo */
+    --danger-hover: #DC2626; /* Vermelho mais escuro para hover */
+    --warning-color: #FBBF24; /* Amarelo/Âmbar para Limpar/Atenção */
+
+    /* Cores de Status (Baseado nas cores originais que você enviou) */
+    --status-agendada: #3b82f6; 
+    --status-confirmada: #10b981; 
+    --status-pendente: #f97316; 
+}
+
+/* ================================================= */
+/* 2. BASE E LAYOUT GERAL */
+/* ================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-dark);
+}
+
+main {
+    padding: 30px;
+    max-width: 1300px; 
+    margin: auto;
+}
+
+/* Títulos de Seção (Usado em Dashboard e Formulários) */
+.section-title {
+    font-size: 22px;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #e0e0e0; 
+}
+
+/* ================================================= */
+/* 3. COMPONENTES: HEADER, NAV e FOOTER (Modularizados) */
+/* ================================================= */
+
+header {
+    background-color: var(--content-bg);
+    padding: 18px 30px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+    position: sticky; /* Sticky para o cabeçalho fixo */
+    top: 0;
+    z-index: 100;
+}
+/* Estilo para o LINK ATIVO (navbar) */
+header nav a.active {
+    color: var(--primary-color); /* Mantém a cor primária para o link */
+    font-weight: 700; /* Deixa o texto mais pesado */
+    /* Adiciona uma transição sutil para mover o ícone e a cor */
+    border-bottom: 2px solid var(--primary-color); /* Adiciona uma linha de destaque */
+    padding-bottom: 5px;
+}
+
+/* Estilo para o ÍCONE dentro do link ativo */
+header nav a.active i {
+    transform: scale(1.1); /* Ícone um pouco maior */
+    color: var(--primary-color); /* Garante que o ícone seja destacado com a cor primária */
+    transition: transform 0.2s;
+}
+
+header h1 {
+    color: var(--primary-color);
+    font-size: 24px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+header h1 i {
+    color: var(--primary-color);
+}
+
+nav a {
+    margin-left: 25px; 
+    text-decoration: none;
+    color: #555; 
+    font-weight: 500;
+    transition: color 0.3s, border-bottom-color 0.3s;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+}
+
+nav a:hover {
+    color: var(--primary-color);
+}
+
+footer {
+    text-align: center;
+    padding: 20px 0;
+    color: var(--text-soft);
+    margin-top: 50px;
+    font-size: 14px;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--content-bg);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
+
+
+/* ================================================= */
+/* 4. COMPONENTES: CARDS (Dashboard) */
+/* ================================================= */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.card {
+    background-color: var(--content-bg);
+    padding: 25px;
+    border-radius: 15px; 
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1); 
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-left: 5px solid var(--primary-color); 
+}
+
+.card:hover {
+    transform: translateY(-8px); 
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.card h2 {
+    font-size: 38px; 
+    margin-bottom: 5px;
+    color: var(--primary-color);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.card h2 i {
+    font-size: 28px;
+    opacity: 0.7;
+}
+
+.card p {
+    font-size: 15px;
+    color: var(--text-soft);
+    font-weight: 500;
+}
+
+/* Cores e Ícones Específicos para os Cards */
+.card:nth-child(1) { border-left-color: #3b82f6; } /* Usuários - Azul */
+.card:nth-child(2) { border-left-color: #10b981; } /* Ativos - Verde */
+.card:nth-child(3) { border-left-color: #a78bfa; } /* Criadas - Roxo */
+.card:nth-child(4) { border-left-color: #ef4444; } /* Pendentes - Vermelho */
+
+
+/* ================================================= */
+/* 5. COMPONENTES: TABELA (Dashboard) */
+/* ================================================= */
+
+.table-container {
+    background-color: var(--content-bg);
+    padding: 25px; 
+    border-radius: 15px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px; 
+}
+
+table thead {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+table th {
+    padding: 14px 15px; 
+    text-align: left;
+    font-weight: 600;
+}
+
+table td {
+    padding: 15px 15px; 
+    text-align: left;
+    border-bottom: 1px solid #eee; 
+    vertical-align: middle;
+}
+
+table tbody tr:last-child td {
+    border-bottom: none; 
+}
+
+table tbody tr:hover {
+    background-color: #f0f4f8; 
+}
+
+.status {
+    padding: 6px 14px; 
+    border-radius: 20px; 
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+/* Cores de Status */
+.agendada { background-color: var(--status-agendada); box-shadow: 0 2px 4px rgba(59, 130, 246, 0.4); }
+.confirmada { background-color: var(--status-confirmada); box-shadow: 0 2px 4px rgba(16, 185, 129, 0.4); }
+.pendente { background-color: var(--status-pendente); box-shadow: 0 2px 4px rgba(249, 115, 22, 0.4); } 
+
+/* Ícone de Ação Rápida (Olho) */
+.action-icon {
+    color: var(--primary-color);
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 10px;
+    transition: color 0.2s;
+}
+.action-icon:hover {
+    color: var(--primary-hover);
+}
+
+/* ================================================= */
+/* 6. RESPONSIVIDADE (Adaptações do seu código) */
+/* ================================================= */
+@media(max-width: 768px){
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        position: static; /* Remove sticky em mobile para melhor visualização */
+        padding: 18px 30px 10px;
+    }
+
+    nav {
+        margin-top: 15px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    nav a {
+        margin-left: 0;
+        margin-right: 15px;
+        width: 100%;
+        padding: 5px 0;
+    }
+    
+    main {
+        padding: 15px;
+    }
+}
+/* ================================================= */
+/* 7. COMPONENTES: FORMULÁRIOS (Clientes) */
+/* ================================================= */
+
+/* Estilo do Container Principal (Card) */
+.client-form-container {
+    width: 100%;
+    max-width: 700px;
+    background-color: #e2e8f0; /* Tom mais escuro para contraste visível */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15); /* Sombra mais escura */
+    margin: 30px auto; /* Centraliza o formulário */
+    border: 1px solid rgba(0, 0, 0, 0.12); /* Borda mais visível */
+    transition: all 0.3s ease; /* Transição suave para todos os efeitos */
+}
+
+.client-form-container:hover {
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18); /* Sombra mais pronunciada no hover */
+    background-color: #dde4ed; /* Ligeiramente mais escuro no hover */
+}
+
+/* Título do Formulário (Reaproveita section-title, mas com ajuste local) */
+.client-form-container h2 {
+    /* O código abaixo é redundante se você usar a classe .section-title no h2 */
+    /* Caso não use a classe, este bloco garante o estilo do card */
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--background-color);
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+/* Estilo para Grupos de Campo */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Estilo da Label */
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+/* Estilo dos Inputs e Textareas (Seção 7 - Formulários) */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group input[type="password"], /* <-- GARANTA QUE ESTA LINHA EXISTA */
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color); /* Borda padrão */
+    border-radius: 4px;
+    box-sizing: border-box; 
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    /* Adicione um background-color se os inputs estiverem transparentes */
+    background-color: var(--content-bg); /* Fundo branco para os inputs */
+}
+
+/* Foco nos Inputs (usando o primary-hover para o efeito mais suave) */
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-hover);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); 
+    outline: none;
+}
+
+/* Layout de colunas para campos (Row) */
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+/* Ajuste de Largura para a linha de Rua e Número */
+.form-row .rua-input {
+    flex: 3;
+}
+.form-row .numero-input {
+    flex: 1;
+}
+
+/* Ações do Formulário */
+.form-actions {
+    margin-top: 30px;
+    text-align: right;
+}
+
+/* Estilo do Botão Principal (Salvar e Atualizar) */
+.form-actions button.btn-primary,
+button.btn-primary {
+    padding: 12px 25px;
+    background-color: var(--primary-color);
+    color: var(--content-bg);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+/* Efeito Hover no Botão Principal */
+.form-actions button.btn-primary:hover,
+button.btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+/* Estilo para botão secundário (Cancelar) */
+.form-actions button.btn-secondary {
+    padding: 12px 25px;
+    background-color: var(--danger-color); /* VERMELHO */
+    color: var(--content-bg);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 10px; /* Espaçamento para o botão Salvar */
+    transition: background-color 0.3s, transform 0.1s;
+}
+.form-actions button.btn-secondary:hover {
+    background-color: var(--danger-hover); /* VERMELHO ESCURO NO HOVER */
+    transform: translateY(-1px);
+}
+/* --- Estilo para botão terciário (Limpar/Reset) - COR DE ATENÇÃO --- */
+.form-actions button.btn-tertiary {
+    padding: 12px 15px;
+    background-color: var(--warning-color); /* Amarelo/Âmbar */
+    color: var(--text-dark); /* Texto escuro para contrastar com o amarelo */
+    border: none; /* Remove a borda para um look mais clean */
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: opacity 0.3s, transform 0.1s;
+    margin-right: 10px; 
+}
+
+/* Efeito Hover no Botão Terciário */
+.form-actions button.btn-tertiary:hover {
+    background-color: #f59e0b; /* Um tom de amarelo/laranja um pouco mais forte */
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+/* ================================================= */
+/* 8. COMPONENTES: LISTA DE CLIENTES (Tabela) */
+/* ================================================= */
+
+.list-container {
+    width: 100%;
+    max-width: 1300px; /* Adapte ao max-width do seu 'main' */
+    margin: 50px auto 30px auto;
+}
+
+/* Título da Seção (Abaixo do formulário) */
+.list-section-title {
+    font-size: 26px; /* Um pouco maior que o título do formulário */
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+.table-container {
+    background-color: var(--content-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    overflow-x: auto; /* Permite scroll horizontal em telas pequenas */
+    padding: 0; /* Remove padding interno para o fundo da tabela encostar nas bordas */
+}
+
+/* Estilo Base da Tabela */
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 750px; /* Garante que não fique muito apertado */
+}
+
+/* Cabeçalho da Tabela */
+.table-container thead {
+    background-color: var(--primary-color);
+    color: var(--content-bg);
+}
+
+.table-container th {
+    padding: 14px 18px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+/* Corpo e Linhas da Tabela */
+.table-container tbody tr:nth-child(even) {
+    background-color: var(--background-color); /* Linhas zebradas para facilitar a leitura */
+}
+
+.table-container tbody tr:hover {
+    background-color: #e6eef7; /* Hover sutil com tom do primary-hover */
+}
+
+.table-container td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #eee;
+    color: var(--text-dark);
+    font-size: 14px;
+}
+
+/* Alinhamento de Texto (Centralizando Ações) */
+.text-center {
+    text-align: center !important;
+}
+.action-icons {
+    text-align: center;
+    white-space: nowrap; /* Impede a quebra de linha dos ícones */
+}
+
+/* Estilos dos Ícones de Ação */
+.action-icons i {
+    cursor: pointer;
+    font-size: 16px;
+    margin: 0 5px;
+    transition: color 0.2s, transform 0.1s;
+}
+
+/* Cores e Hover Específicos para Ações */
+.view-action {
+    color: var(--primary-color);
+}
+.view-action:hover {
+    color: var(--primary-hover);
+    transform: scale(1.1);
+}
+
+.edit-action {
+    color: var(--status-agendada); /* Azul claro */
+}
+.edit-action:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.delete-action {
+    color: var(--danger-color); /* Vermelho */
+}
+.delete-action:hover {
+    color: var(--danger-hover);
+    transform: scale(1.1);
+}
+/* Centraliza o texto das colunas que se beneficiam disso (ID, Telefone, Ações) */
+/* Colunas: 1=ID, 2=Nome, 3=Telefone, 4=Endereço, 5=Ações */
+
+/* 1ª Coluna (ID) - Centralizar */
+.table-container tbody td:nth-child(1) {
+    text-align: center;
+}
+
+/* 3ª Coluna (Telefone) - Centralizar */
+.table-container tbody td:nth-child(3) {
+    text-align: center;
+}
+
+/* 5ª Coluna (Ações) - Centralizar (Garante o alinhamento central para os ícones) */
+.table-container tbody td:nth-child(5) {
+    text-align: center;
+}
+
+/* Garante que o Nome (2ª coluna) e Endereço (4ª coluna) permaneçam à esquerda */
+.table-container tbody td:nth-child(2),
+.table-container tbody td:nth-child(4) {
+    text-align: left;
+}
+/* --- Estilos para a Barra de Pesquisa --- */
+.list-controls {
+    display: flex;
+    justify-content: flex-start; /* Alinha a barra à esquerda */
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--content-bg);
+    padding: 8px 12px;
+    width: 100%;
+    max-width: 450px; /* Limita a largura para não ocupar a tela toda */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.search-bar i {
+    color: var(--text-soft);
+    margin-right: 10px;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    padding: 0;
+    font-size: 16px;
+    color: var(--text-dark);
+    width: 100%;
+    background: transparent;
+}
+
+/* Foco visual */
+.search-bar:focus-within {
+    border-color: var(--primary-hover);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); 
+}
+/* ================================================= */
+/* 9. COMPONENTES: TELA DE LOGIN */
+/* ================================================= */
+
+/* Reduz a largura do container de Cliente para um login mais compacto */
+.client-form-container.login-override {
+    max-width: 400px; 
+    margin: 10vh auto 0 auto; /* Centraliza mais no centro da tela */
+}
+
+/* Ajuste no Card (Sombra e Largura) */
+.client-form-container.login-override {
+    width: 100%;
+    max-width: 400px; 
+    
+    /* Card Sutilmente Cinza (Tom #EFEFEF) */
+    background-color: #EFEFEF; 
+    
+    padding: 40px; 
+    border-radius: 12px;
+    
+    /* Sombra e centralização mantidas */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
+    margin: 0; 
+    transition: box-shadow 0.3s ease;
+}
+
+/* Título (Centralização) */
+.client-form-container.login-override h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-align: center; /* CENTRALIZAÇÃO */
+    margin-bottom: 30px;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+/* Inputs de Login (Reaproveitando o form-group e os estilos padrões) */
+.login-override .form-group input {
+    /* Garante que o input de login siga o estilo do formulário de Cliente */
+    margin-bottom: 0;
+}
+
+/* Estilo para o botão "Entrar" */
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: var(--content-bg);
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.btn-login:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+/* Estilo para os links extras (Esqueceu a senha / Criar conta) */
+.extra-links {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.extra-links a {
+    color: var(--primary-color);
+    text-decoration: none;
+    line-height: 1.8; /* Espaçamento entre os links */
+}
+
+.extra-links a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+/* Estilos aplicados SOMENTE na tela de login */
+body.login-page {
+    /* Fundo gradiente utilizando o Azul Primário (Primary-Color) de forma sutil */
+    background: linear-gradient(135deg, 
+                #CCDAF2 0%,             /* Azul muito claro (quase branco) */
+                var(--primary-hover) 100%); /* Termina com o azul de hover */
+    
+    /* Nota: Se quiser usar o Primary-Color diretamente, use um RGBA muito transparente: */
+    /* background: radial-gradient(circle at center, rgba(26, 62, 143, 0.1) 0%, var(--background-color) 100%); */
+    
+    /* Garante a centralização */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+/* --- Estilos para Status da Ordem de Serviço --- */
+.status-pendente {
+    background-color: #ffc107; /* Amarelo */
+    color: #333;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+.status-agendada {
+    background-color: #17a2b8; /* Azul claro */
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+.status-em_andamento {
+    background-color: #007bff; /* Azul */
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+.status-concluida {
+    background-color: #28a745; /* Verde */
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+.status-cancelada {
+    background-color: #dc3545; /* Vermelho */
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+}

@@ -1,0 +1,1 @@
+web: java -Dserver.port=$PORT -Dspring.profiles.active=test,railway -Xmx512m -Xms256m $JAVA_OPTS -jar target/demo-0.0.1-SNAPSHOT.jar

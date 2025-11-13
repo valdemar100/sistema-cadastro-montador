@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Gestão de Montagens</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="stylesheet/style.css">
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-tools"></i> Sistema de Montagem</h1>
+        <nav>
+            <a href="index.html"><i class="fas fa-home"></i> Início</a>
+            <a href="usuarios.html"><i class="fas fa-users"></i> Clientes</a>
+            <a href="montador.html"><i class="fas fa-wrench"></i> Montadores</a>
+            <a href="ordem-servico.html"><i class="fas fa-clipboard-list"></i> Ordens de Serviço</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2 class="section-title"><i class="fas fa-chart-line"></i> Painel Principal (Dashboard)</h2>
+        <div class="cards">
+            
+            <div class="card">
+                <h2 id="totalClientes"><i class="fas fa-user-plus"></i> ...</h2>
+                <p>Total de Clientes</p>
+            </div>
+            
+            <div class="card">
+                <h2 id="totalMontadores"><i class="fas fa-user-check"></i> ...</h2>
+                <p>Total de Montadores Ativos</p>
+            </div>
+            
+            <div class="card">
+                <h2 id="totalOrdensServico"><i class="fas fa-box-open"></i> ...</h2>
+                <p>Total de Ordens de Serviço</p>
+            </div>
+            
+            <div class="card">
+                <h2 id="osPendentes"><i class="fas fa-clock"></i> ...</h2>
+                <p>Ordens Pendentes</p>
+            </div>
+            <div class="card">
+            <h2 id="osAgendadas"><i class="fas fa-calendar-check"></i> ...</h2>
+            <p>Ordens Agendadas</p>
+         </div>   
+        </div>
+
+        <h2 class="section-title"><i class="fas fa-calendar-alt"></i> Próximas Ordens de Serviço</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th># OS</th>
+                        <th>Cliente</th>
+                        <th>Endereço</th>
+                        <th>Data</th>
+                        <th>Equipe</th>
+                        <th>Status</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaOrdens"> 
+                    </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        © 2025 Montador de Móveis — Painel Administrador
+    </footer>
+    
+    <script>
+        // ... Lógica JavaScript será colocada aqui ou em index.js ...
+    </script>
+    <script src="javascript/dashboard.js"></script>
+</body>
+</html>

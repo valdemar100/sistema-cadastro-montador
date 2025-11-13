@@ -1,0 +1,117 @@
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cadastro e Lista de Montadores</title> 
+        <link rel="stylesheet" href="stylesheet/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+    <body>
+        <header>
+            <h1><i class="fas fa-tools"></i> Sistema de Montagem</h1>
+            <nav>
+            <a href="index.html"><i class="fas fa-home"></i> Início</a>
+            <a href="usuarios.html"><i class="fas fa-users"></i> Clientes</a>
+            <a href="montador.html" class="active"><i class="fas fa-wrench"></i> Montadores</a>
+            <a href="ordem-servico.html"><i class="fas fa-clipboard-list"></i> Ordens de Serviço</a>
+            </nav>
+        </header>
+
+        <div class="client-form-container">
+            <h2>Cadastro de Novo Montador</h2>
+
+            <form id="form-montador">
+                <input type="hidden" id="montador-id">
+                <div id="feedback-message" class="message"></div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nome">Nome Completo</label>
+                        <input type="text" id="nome" name="nome" placeholder="Ex: Lucas Silva" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" placeholder="montador@exemplo.com" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="telefone">Telefone/Celular</label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="(99) 99999-9999" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="documento">CPF</label>
+                        <input type="text" id="documento" name="documento" placeholder="000.000.000-00" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group rua-input">
+                        <label for="rua">Rua/Avenida</label>
+                        <input type="text" id="rua" name="rua" placeholder="Ex: Rua das Flores" required>
+                    </div>
+                    <div class="form-group numero-input">
+                        <label for="numero">Número</label>
+                        <input type="text" id="numero" name="numero" placeholder="123" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bairro">Bairro</label>
+                        <input type="text" id="bairro" name="bairro" placeholder="Ex: Centro" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cidade_estado">Cidade / Estado</label>
+                        <input type="text" id="cidade_estado" name="cidade_estado" placeholder="Ex: São Paulo / SP" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="observacoes">Observações Adicionais</label>
+                    <textarea id="observacoes" name="observacoes" rows="3" placeholder="Informações sobre ferramentas, veículo, etc."></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button id="btn-salvar" type="submit" class="btn btn-primary">Salvar Montador</button>
+                    <button type="reset" class="btn-tertiary">Limpar Campos</button>
+                    <button type="button" class="btn-secondary" onclick="limparFormulario()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="list-container">
+            <h2 class="list-section-title">Lista de Montadores</h2>
+            <div class="list-controls">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i> 
+                    <input type="text" id="search-montador" placeholder="Pesquisar por Nome, ID ou Telefone...">
+                </div>
+            </div>
+        
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>Endereço Principal</th>
+                            <th class="text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista-montadores">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Sistema de Montagem. Todos os direitos reservados.</p>
+        </footer>
+
+        <script src="javascript/montador.js"></script> 
+    </body>
+    </html>
